@@ -1,9 +1,11 @@
 import { app } from "./app";
 import { database } from '../moongose';
-import { config } from "./shared/infrastructure";
+import 'dotenv/config';
 
 database();
 
-app.listen(config.server.port, () =>
-  console.log(`Example app listening at http://localhost:${config.server.port}`)
+const port = process.env.PORT || 3000;
+
+app.listen(port, () =>
+  console.log(`Example app listening at http://localhost:${port}`)
 );

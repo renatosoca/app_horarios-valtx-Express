@@ -2,7 +2,6 @@
 import express, { Response, Request, urlencoded, json } from "express";
 import swaggerUi from "swagger-ui-express";
 import { userRouter } from "./users/infrastructure";
-import 'dotenv/config';
 
 export const app = express();
 
