@@ -1,5 +1,6 @@
 
 export class User {
+  _id: string;
   name: string;
   lastName: string;
   userName: string;
@@ -14,14 +15,15 @@ export class User {
     name: string,
     lastName: string,
     userName: string,
-    completeName = `${name} ${lastName}`,
+    completeName: string,
     email: string,
     password: string,
     status = true,
   ) {
-    this.userName = userName;
+    this._id = '';
     this.name = name;
     this.lastName = lastName;
+    this.userName = userName;
     this.completeName = completeName;
     this.email = email;
     this.password = password;

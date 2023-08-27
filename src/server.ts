@@ -1,7 +1,9 @@
 import { app } from "./app";
+import { database } from '../moongose';
+import { config } from "./shared/infrastructure";
 
-const port = process.env.PORT || 3000;
+database();
 
-app.listen(port, () =>
-  console.log(`Example app listening at http://localhost:${port}`)
+app.listen(config.server.port, () =>
+  console.log(`Example app listening at http://localhost:${config.server.port}`)
 );

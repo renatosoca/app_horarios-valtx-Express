@@ -1,4 +1,4 @@
-import { bcryptController } from "../../shared/infrastructure/dependencies";
+import { bcryptRepository, jwtRepository } from "../../shared/infrastructure";
 import { UserService } from "../application";
 import { UserController } from "./controllers/user.controller";
 import { inMongoUserRepository } from "./repositories/user.mongo";
@@ -8,7 +8,8 @@ import { inMongoUserRepository } from "./repositories/user.mongo";
 const userRepository = new inMongoUserRepository();
 const userService = new UserService(
   userRepository,
-  bcryptController
+  bcryptRepository,
+  jwtRepository,
 );
 
 export const userController = new UserController(userService);

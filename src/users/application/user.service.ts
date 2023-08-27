@@ -1,20 +1,23 @@
-import { BcryptRepository } from "../../shared/domain";
+import { BcryptRepository, JWRRepository } from "../../shared/domain";
 import { UserRepository, User } from "../domain";
 
 export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly bcryptRespository: BcryptRepository
+    private readonly bcryptRespository: BcryptRepository,
+    private readonly jwtRepository: JWRRepository,
   ) { }
 
-  getUserById = async (userId: string) => {
-    const user = await this.userRepository.getUserById(userId);
-    return user;
-  }
+  loginUser = async (email: string, password: string) => {
+    const userExist = await this.userRepository.getUserByEmail(email);
+    if (!userExist) return null;
 
-  getUserByEmail = async (email: string) => {
-    const user = await this.userRepository.getUserByEmail(email);
-    return user;
+    const isPasswordValid = this.bcryptRespository.comparePassword(password, userExist.password);
+    if (!isPasswordValid) return null;
+
+    const token = this.jwtRepository.generateJWT(userExist);
+    console.log(token)
+    return token;
   }
 
   createUser = async (user: User) => {

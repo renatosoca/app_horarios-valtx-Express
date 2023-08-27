@@ -1,6 +1,7 @@
 import { compareSync, genSaltSync, hashSync } from "bcrypt";
+import { BcryptRepository } from "../../domain";
 
-export class BcryptRepository implements BcryptRepository {
+export class inBcryptRepository implements BcryptRepository {
 
   hashPassword = (password: string): string => {
     const salt = genSaltSync(10);

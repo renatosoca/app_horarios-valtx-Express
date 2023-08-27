@@ -3,8 +3,7 @@ import { userController } from "../dependencies";
 
 const userRouter = Router();
 
-userRouter.get("/", userController.getUserById);
-userRouter.post("/", userController.createUser);
-userRouter.get("/email", userController.getUserByEmail);
+userRouter.post("/login", userController.authUser);
+userRouter.post("/create", userController.createUser);
 
 export { userRouter }

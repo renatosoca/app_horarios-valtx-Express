@@ -4,11 +4,14 @@ import { UserService } from "../../application";
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
-  getUserById = async ({ query }: Request, res: Response) => {
-    const { userId } = query;
+  authUser = async ({ body }: Request, res: Response) => {
+    const { email, password } = body;
+
     try {
-      const user = await this.userService.getUserById(`${userId}`);
-      if (!user) return res.status(400).json({ statusCode: 400, message: 'Usuario no encontrado', ok: false });
+      const user = await this.userService.loginUser(email, password);
+      if (!user) return res
+        .status(400)
+        .json({ statusCode: 400, message: 'Email o contraseña incorrectos', ok: false });
 
       return res.status(200).json({
         user,
@@ -16,25 +19,7 @@ export class UserController {
     } catch (error: any) {
       return res.status(500).json({
         statusCode: 500,
-        message: 'Ocurrio un error inesperado, intente mas tarde',
-        ok: false,
-      })
-    }
-  }
-
-  getUserByEmail = async ({ query }: Request, res: Response) => {
-    const { email } = query;
-    try {
-      const user = await this.userService.getUserByEmail(`${email}`);
-      if (!user) return res.status(400).json({ statusCode: 400, message: 'Usuario no encontrado', ok: false });
-
-      return res.status(200).json({
-        user,
-      });
-    } catch (error: any) {
-      return res.status(500).json({
-        statusCode: 500,
-        message: 'Ocurrio un error inesperado, intente mas tarde',
+        message: error.message ?? 'Ocurrio un error inesperado, intente mas tarde',
         ok: false,
       })
     }
