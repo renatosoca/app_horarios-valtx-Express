@@ -1,0 +1,150 @@
+{
+  "components": {
+    "examples": {},
+    "headers": {},
+    "parameters": {
+      "Auth": {
+        "name": "Authorization",
+        "in": "header",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "requestBodies": {},
+    "responses": {},
+    "schemas": {
+      "Auth": {
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        },
+        "required": ["token"],
+        "type": "object",
+        "additionalProperties": false
+      },
+      "Product": {
+        "properties": {
+          "productId": {
+            "type": "number",
+            "format": "double"
+          },
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "required": ["productId", "name", "price"],
+        "type": "object",
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "info": {
+    "title": "REST API Para Wilmer",
+    "version": "1.0.0",
+    "license": {
+      "name": "ISC"
+    },
+    "contact": {}
+  },
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/Auth": {
+      "tags": ["Auth"],
+      "post": {
+        "operationId": "AddOrder",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "total": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "productId": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                },
+                "required": ["total", "productId"],
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/product": {
+      "post": {
+        "operationId": "AddProduct",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "price": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": ["price", "name"],
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ]
+}

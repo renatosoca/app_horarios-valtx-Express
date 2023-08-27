@@ -1,0 +1,8 @@
+node_modules/
+docker/
+dist/
+.tmp
+.idea
+.env
+coverage/
+.env
